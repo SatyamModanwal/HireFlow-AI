@@ -1,24 +1,28 @@
-import MainLayout from "../../components/layout/MainLayout";
-import Hero from "../../components/home/Hero";
-import Features from "../../components/home/Features";
-import HowItWorks from "../../components/home/HowItWorks";
+import Testimonials from "../../components/home/Testimonials";
+import FAQ from "../../components/home/FAQ";
 
-function Home() {
+function Home(){
 
-    return (
+    return(
 
         <MainLayout>
 
-            <Hero />
+            <Hero/>
 
-            <Features />
+            <Stats/>
 
-            <HowItWorks />
+            <DashboardPreview/>
+
+            <Features/>
+
+            <HowItWorks/>
+
+            <Testimonials/>
+
+            <FAQ/>
 
         </MainLayout>
 
-    );
+    )
 
 }
-
-export default Home;

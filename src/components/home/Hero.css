@@ -1,12 +1,17 @@
 .hero{
+
     width:100%;
-    min-height:90vh;
 
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
 
     padding:80px;
+
+    min-height:70vh;
+
 }
 
 .hero-left{
@@ -14,8 +19,9 @@
 }
 
 .hero-left h1{
-    font-size:55px;
-    margin-bottom:20px;
+    font-size:65px;
+   line-height:1.2;
+   font-weight:700;
 }
 
 .hero-left p{

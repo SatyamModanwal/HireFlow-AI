@@ -20,7 +20,10 @@
 }
 
 .logo{
-    font-size:28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size:30px;
     font-weight:bold;
     color:#2563eb;
 }

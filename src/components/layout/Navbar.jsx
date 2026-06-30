@@ -5,7 +5,8 @@ function Navbar() {
     <nav className="navbar">
 
       <div className="logo">
-        HireFlow AI
+         <span>💼</span> HireFlow AI
+        {/* HireFlow AI */}
       </div>
 
       <ul className="nav-links">
