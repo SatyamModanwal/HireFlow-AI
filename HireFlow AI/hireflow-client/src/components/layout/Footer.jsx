@@ -11,7 +11,7 @@ function Footer(){
             <p>
                 Helping students prepare for jobs with AI-powered tools.
             </p>
-
+            
             <p>
 
                 © 2025 HireFlow AI | All Rights Reserved.
