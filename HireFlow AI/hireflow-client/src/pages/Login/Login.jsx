@@ -1,185 +1,88 @@
-// // React se useState hook import kar rahe hain
-// import { useState } from "react";
-
-// // CSS import
-// import "./Login.css";
-
-// function Login() {
-
-//   // Form data ko state me store kar rahe hain
-//   const [formData, setFormData] = useState({
-//     email: "",
-//     password: "",
-//   });
-
-//   return (
-//     <div className="login-page">
-//       <div className="login-container">
-
-//         <h2>Welcome Back 👋</h2>
-
-//         <p>Login to continue your career journey.</p>
-
-//         <form>
-
-//           {/* Email */}
-//           <div className="input-group">
-//             <label>Email</label>
-
-//             <input
-//               type="email"
-//               placeholder="Enter your email"
-//               value={formData.email}
-//               onChange={(e) =>
-//                 setFormData({
-//                   ...formData,
-//                   email: e.target.value,
-//                 })
-//               }
-//             />
-//           </div>
-
-//           {/* Password */}
-//           <div className="input-group">
-//             <label>Password</label>
-
-//             <input
-//               type="password"
-//               placeholder="Enter your password"
-//               value={formData.password}
-//               onChange={(e) =>
-//                 setFormData({
-//                   ...formData,
-//                   password: e.target.value,
-//                 })
-//               }
-//             />
-//           </div>
-
-//           <button type="submit">
-//             Login
-//           </button>
-
-//         </form>
-
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Login;
-
-
-// React se useState hook import kar rahe hain
 import { useState } from "react";
-
-// Login page ki CSS import
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../api/authApi";
 import "./Login.css";
 
 function Login() {
+  const navigate = useNavigate();
 
-    // Form ka data store karne ke liye state
-    const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-        email: "",
+  function handleChange(event) {
+    const { name, value } = event.target;
 
-        password: ""
-
+    setFormData({
+      ...formData,
+      [name]: value,
     });
+  }
 
-    // Jab user input me kuch type karega tab ye function chalega
-    function handleChange(event) {
+  async function handleSubmit(event) {
+    event.preventDefault();
 
-        // Input ka name aur value nikal rahe hain
-        const { name, value } = event.target;
+    try {
+      const response = await loginUser(formData);
 
-        // State update kar rahe hain
-        setFormData({
+      // Save JWT Token
+      localStorage.setItem("token", response.data.token);
 
-            // Purana data copy kar rahe hain
-            ...formData,
+      alert(response.data.message);
 
-            // Sirf jis input me typing hui uski value update hogi
-            [name]: value
+      setFormData({
+        email: "",
+        password: "",
+      });
 
-        });
-
+      navigate("/profile");
+    } catch (error) {
+      alert(error.response?.data?.message || "Login Failed");
     }
+  }
 
-    // Form submit hone par ye function chalega
-    function handleSubmit(event) {
+  return (
+    <div className="login-page">
+      <div className="login-container">
+        <h2>Welcome Back 👋</h2>
 
-        // Page reload hone se rokta hai
-        event.preventDefault();
+        <p>Login to continue your career journey.</p>
 
-        // Abhi backend nahi hai
-        // Isliye data console me print kar rahe hain
-        console.log("Login Data :", formData);
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label>Email</label>
 
-    }
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-    return (
+          <div className="input-group">
+            <label>Password</label>
 
-        <div className="login-page">
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-            <div className="login-container">
-
-                <h2>Welcome Back 👋</h2>
-
-                <p>
-                    Login to continue your career journey.
-                </p>
-
-                {/* Form Start */}
-                <form onSubmit={handleSubmit}>
-
-                    {/* Email Input */}
-                    <div className="input-group">
-
-                        <label>Email</label>
-
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Enter your email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
-
-                    </div>
-
-                    {/* Password Input */}
-                    <div className="input-group">
-
-                        <label>Password</label>
-
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Enter your password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                        />
-
-                    </div>
-
-                    {/* Login Button */}
-                    <button type="submit">
-
-                        Login
-
-                    </button>
-
-                </form>
-
-            </div>
-
-        </div>
-
-    );
-
+          <button type="submit">
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }
 
-export default login;
+export default Login;
