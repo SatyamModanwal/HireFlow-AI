@@ -1,134 +1,110 @@
-/* Pura page center me lane ke liye */
+/* ==========================
+   Login Page
+========================== */
 
-.login-page{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    height:100vh;
-
-    background:#f5f7fb;
-
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f7fb;
 }
 
+/* ==========================
+   Login Card
+========================== */
 
-/* White Login Card */
-
-.login-container{
-
-    width:400px;
-
-    background:white;
-
-    padding:40px;
-
-    border-radius:12px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.1);
-
+.login-container {
+  width: 400px;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-
-/* Heading */
-
-.login-container h2{
-
-    text-align:center;
-
-    margin-bottom:10px;
-
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 10px;
 }
 
-
-/* Paragraph */
-
-.login-container p{
-
-    text-align:center;
-
-    color:gray;
-
-    margin-bottom:30px;
-
+.login-container p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 25px;
 }
 
+/* ==========================
+   Input Group
+========================== */
 
-/* Input ke upar thoda gap */
-
-.input-group{
-
-    margin-bottom:20px;
-
+.input-group {
+  margin-bottom: 20px;
 }
 
-
-/* Label */
-
-.input-group label{
-
-    display:block;
-
-    margin-bottom:8px;
-
+.input-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
 }
 
-
-/* Input Design */
-
-.input-group input{
-
-    width:100%;
-
-    padding:12px;
-
-    border:1px solid #ccc;
-
-    border-radius:8px;
-
-    outline:none;
-
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 15px;
+  box-sizing: border-box;
 }
 
-
-/* Jab input par click kare */
-
-.input-group input:focus{
-
-    border-color:#2563eb;
-
+.input-group input:focus {
+  border-color: #2563eb;
 }
 
+/* ==========================
+   Button
+========================== */
 
-/* Login Button */
-
-button{
-
-    width:100%;
-
-    padding:12px;
-
-    border:none;
-
-    background:#2563eb;
-
-    color:white;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-    font-size:16px;
-
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
+.login-container button:hover {
+  background: #1d4ed8;
+}
 
-/* Hover Effect */
+.login-container button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
 
-button:hover{
+/* ==========================
+   Register Link
+========================== */
 
-    background:#1d4ed8;
+.register-link {
+  margin-top: 20px;
+  text-align: center;
+}
 
+.register-link p {
+  margin-bottom: 8px;
+}
+
+.register-link a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
 }

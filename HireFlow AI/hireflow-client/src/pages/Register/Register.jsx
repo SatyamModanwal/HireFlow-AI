@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { registerUser } from "../../api/authApi";
 import "./Register.css";
 
-function Register() {
+const Register = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -12,43 +12,50 @@ function Register() {
     password: "",
   });
 
-  function handleChange(event) {
-    const { name, value } = event.target;
+  const [loading, setLoading] = useState(false);
 
+  // Handle Input Change
+  const handleChange = (e) => {
     setFormData({
       ...formData,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
-  }
+  };
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+  // Handle Register
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.password) {
+      alert("Please fill all fields");
+      return;
+    }
 
     try {
+      setLoading(true);
+
       const response = await registerUser(formData);
 
       alert(response.data.message);
 
-      setFormData({
-        name: "",
-        email: "",
-        password: "",
-      });
-
       navigate("/login");
     } catch (error) {
       alert(error.response?.data?.message || "Registration Failed");
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="register-page">
       <div className="register-container">
+
         <h2>Create Account</h2>
 
         <p>Create your HireFlow AI account.</p>
 
         <form onSubmit={handleSubmit}>
+
           <div className="input-group">
             <label>Name</label>
 
@@ -58,7 +65,6 @@ function Register() {
               placeholder="Enter your name"
               value={formData.name}
               onChange={handleChange}
-              required
             />
           </div>
 
@@ -71,7 +77,6 @@ function Register() {
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
-              required
             />
           </div>
 
@@ -84,17 +89,26 @@ function Register() {
               placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
-              required
             />
           </div>
 
-          <button type="submit">
-            Register
+          <button type="submit" disabled={loading}>
+            {loading ? "Registering..." : "Register"}
           </button>
+
         </form>
+
+        <div className="login-link">
+          <p>Already have an account?</p>
+
+          <Link to="/login">
+            Login
+          </Link>
+        </div>
+
       </div>
     </div>
   );
-}
+};
 
 export default Register;

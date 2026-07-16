@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../../api/authApi";
 import "./Login.css";
 
-function Login() {
+const Login = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -11,45 +11,51 @@ function Login() {
     password: "",
   });
 
-  function handleChange(event) {
-    const { name, value } = event.target;
+  const [loading, setLoading] = useState(false);
 
+  // Handle Input Change
+  const handleChange = (e) => {
     setFormData({
       ...formData,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
-  }
+  };
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+  // Handle Login
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.email || !formData.password) {
+      alert("Please fill all fields");
+      return;
+    }
 
     try {
+      setLoading(true);
+
       const response = await loginUser(formData);
 
-      // Save JWT Token
       localStorage.setItem("token", response.data.token);
 
       alert(response.data.message);
 
-      setFormData({
-        email: "",
-        password: "",
-      });
-
-      navigate("/profile");
+      navigate("/dashboard");
     } catch (error) {
       alert(error.response?.data?.message || "Login Failed");
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="login-page">
       <div className="login-container">
-        <h2>Welcome Back 👋</h2>
+        <h2>Login</h2>
 
-        <p>Login to continue your career journey.</p>
+        <p>Welcome back to HireFlow AI</p>
 
         <form onSubmit={handleSubmit}>
+
           <div className="input-group">
             <label>Email</label>
 
@@ -59,7 +65,6 @@ function Login() {
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
-              required
             />
           </div>
 
@@ -72,17 +77,26 @@ function Login() {
               placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
-              required
             />
           </div>
 
-          <button type="submit">
-            Login
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
           </button>
+
         </form>
+
+        <div className="register-link">
+          <p>Don't have an account?</p>
+
+          <Link to="/register">
+            Register
+          </Link>
+        </div>
+
       </div>
     </div>
   );
-}
+};
 
 export default Login;
