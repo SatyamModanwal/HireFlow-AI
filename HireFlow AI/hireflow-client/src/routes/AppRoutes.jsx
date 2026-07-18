@@ -9,6 +9,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import Profile from "../pages/Profile/Profile";
 import AddJob from "../pages/AddJob/AddJob";
 import MyJobs from "../pages/MyJobs/MyJobs";
+import EditJob from "../pages/EditJob/EditJob";
 
 // ==========================
 // Protected Route
@@ -20,10 +21,10 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
 
-        {/* Default Route */}
+        {/* Default */}
         <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* Public Routes */}
+        {/* Public */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
@@ -67,11 +68,18 @@ const AppRoutes = () => {
           }
         />
 
-        {/* 404 */}
+        {/* Edit Job */}
         <Route
-          path="*"
-          element={<h1>404 - Page Not Found</h1>}
+          path="/edit-job/:id"
+          element={
+            <ProtectedRoute>
+              <EditJob />
+            </ProtectedRoute>
+          }
         />
+
+        {/* 404 */}
+        <Route path="*" element={<h1>404 - Page Not Found</h1>} />
 
       </Routes>
     </BrowserRouter>

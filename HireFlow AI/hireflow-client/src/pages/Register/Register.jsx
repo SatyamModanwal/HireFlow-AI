@@ -36,11 +36,32 @@ const Register = () => {
 
       const response = await registerUser(formData);
 
+      console.log("Register Success:", response);
+
       alert(response.data.message);
 
       navigate("/login");
+
     } catch (error) {
-      alert(error.response?.data?.message || "Registration Failed");
+
+      console.log("========== REGISTER ERROR ==========");
+      console.log(error);
+
+      if (error.response) {
+        console.log("Status:", error.response.status);
+        console.log("Response:", error.response.data);
+
+        alert(error.response.data.message);
+      } else if (error.request) {
+        console.log("No response received:", error.request);
+
+        alert("Backend Not Connected");
+      } else {
+        console.log("Error:", error.message);
+
+        alert(error.message);
+      }
+
     } finally {
       setLoading(false);
     }

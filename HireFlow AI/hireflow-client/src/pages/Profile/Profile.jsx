@@ -1,60 +1,60 @@
+import "./Profile.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProfile } from "../../api/authApi";
+import "./Profile.css";
 
-function Profile() {
+const Profile = () => {
   const navigate = useNavigate();
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     fetchProfile();
   }, []);
 
-  async function fetchProfile() {
+  const fetchProfile = async () => {
     try {
       const response = await getProfile();
-
       setUser(response.data.user);
     } catch (error) {
-      alert("Please Login First");
-
-      localStorage.removeItem("token");
-
-      navigate("/login");
+      alert(error.response?.data?.message || "Unable to load profile");
     }
-  }
+  };
 
-  function handleLogout() {
+  const handleLogout = () => {
     localStorage.removeItem("token");
-
     navigate("/login");
-  }
+  };
 
   return (
-    <div
-      style={{
-        padding: "40px",
-        textAlign: "center",
-      }}
-    >
-      <h1>Profile Page</h1>
+    <div className="profile-page">
 
-      {user ? (
-        <>
-          <h2>Welcome {user.name}</h2>
+      <div className="profile-card">
 
-          <h3>{user.email}</h3>
+        <h1>👤 My Profile</h1>
 
-          <button onClick={handleLogout}>
-            Logout
-          </button>
-        </>
-      ) : (
-        <h3>Loading...</h3>
-      )}
+        <div className="profile-info">
+          <h2>{user.name}</h2>
+
+          <p>{user.email}</p>
+        </div>
+
+        <button onClick={() => navigate("/dashboard")}>
+          ← Back to Dashboard
+        </button>
+
+        <button
+          className="logout-btn"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
+
+      </div>
+
     </div>
   );
-}
+};
 
 export default Profile;

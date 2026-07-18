@@ -7,6 +7,7 @@ const API = axios.create({
 // ==============================
 // Attach JWT Token Automatically
 // ==============================
+
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
@@ -20,6 +21,7 @@ API.interceptors.request.use((config) => {
 // ==============================
 // Add Job
 // ==============================
+
 export const addJob = (jobData) => {
   return API.post("/jobs", jobData);
 };
@@ -27,6 +29,7 @@ export const addJob = (jobData) => {
 // ==============================
 // Get All Jobs
 // ==============================
+
 export const getJobs = () => {
   return API.get("/jobs");
 };
@@ -34,6 +37,7 @@ export const getJobs = () => {
 // ==============================
 // Get Single Job
 // ==============================
+
 export const getSingleJob = (id) => {
   return API.get(`/jobs/${id}`);
 };
@@ -41,6 +45,7 @@ export const getSingleJob = (id) => {
 // ==============================
 // Update Job
 // ==============================
+
 export const updateJob = (id, jobData) => {
   return API.put(`/jobs/${id}`, jobData);
 };
@@ -48,6 +53,15 @@ export const updateJob = (id, jobData) => {
 // ==============================
 // Delete Job
 // ==============================
+
 export const deleteJob = (id) => {
   return API.delete(`/jobs/${id}`);
+};
+
+// ==============================
+// Dashboard Statistics
+// ==============================
+
+export const getJobStats = () => {
+  return API.get("/jobs/stats");
 };
