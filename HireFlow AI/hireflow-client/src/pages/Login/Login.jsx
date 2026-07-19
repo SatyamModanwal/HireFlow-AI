@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../../api/authApi";
@@ -25,23 +26,24 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    
     if (!formData.email || !formData.password) {
-      alert("Please fill all fields");
-      return;
-    }
+  toast.warning("Please fill all fields");
+  return;
+}
 
     try {
       setLoading(true);
 
       const response = await loginUser(formData);
 
-      localStorage.setItem("token", response.data.token);
+    localStorage.setItem("token", response.data.token);
 
-      alert(response.data.message);
+toast.success(response.data.message || "Login Successful");
 
-      navigate("/dashboard");
+navigate("/dashboard");
     } catch (error) {
-      alert(error.response?.data?.message || "Login Failed");
+     toast.error(error.response?.data?.message || "Login Failed");
     } finally {
       setLoading(false);
     }

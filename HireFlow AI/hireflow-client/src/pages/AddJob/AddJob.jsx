@@ -41,14 +41,14 @@ const AddJob = () => {
 
       const response = await addJob(jobData);
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       navigate("/dashboard");
     } catch (error) {
-      alert(
-        error.response?.data?.message || "Something went wrong"
-      );
+
+      toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
+      
       setLoading(false);
     }
   };

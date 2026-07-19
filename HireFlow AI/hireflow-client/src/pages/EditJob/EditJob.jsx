@@ -87,17 +87,13 @@ const EditJob = () => {
         jobData
       );
 
-      alert(response.data.message);
+   toast.success(response.data.message);
 
       navigate("/my-jobs");
 
     } catch (error) {
 
-      alert(
-        error.response?.data?.message ||
-        "Update Failed"
-      );
-
+     toast.error(error.response?.data?.message || "Update Failed");
     }
 
   };
